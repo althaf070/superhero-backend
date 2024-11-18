@@ -14,10 +14,6 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    grievances: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Greivence' // reference to the Grievance model
-    }]
 })
 
 const User = mongoose.model('User',userSchema)
