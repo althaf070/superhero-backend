@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const grievenceSchema = new mongoose.Schema({
-    userId:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required:true
-    }],
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
     grievanceType: {
         type: String,
         enum: ['Property Damage', 'Abuse', 'Disturbance', 'Unlawful Surveillance', 'Other'],
