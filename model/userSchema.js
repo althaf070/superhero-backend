@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     grievances: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Grievance' // reference to the Grievance model
+        ref: 'Greivence' // reference to the Grievance model
     }]
 })
 
