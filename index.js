@@ -10,7 +10,7 @@ dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT || 3000
-const allowedOrgins=['http://localhost:5173','https://justicebridge.vercel.app']
+const allowedOrgins=['http://localhost:5173','https://justicebridge.vercel.app','https://superhero-module.vercel.app']
 app.use(cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (like mobile apps or curl requests)
