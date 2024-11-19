@@ -91,3 +91,21 @@ export const checkAuth = async (req, res) => {
 		res.status(500).json({ success: false, message: "Error in checking auth,server error" });
     }
 }
+
+
+
+
+
+
+export const getAllUsers = async(req,res)=> {
+    try {
+        const user = await User.find()
+        if(!user || user.length == 0){
+            return res.status(404).json({success: false, message:"User not found"})
+        }
+        res.status(200).json({success:true,message:"User found",user})
+    } catch (error) {
+        console.log("Error in getting user ", error);
+		res.status(500).json({ success: false, message: "Error in getting user,server error" });
+    }
+}
