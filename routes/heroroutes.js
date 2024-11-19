@@ -1,7 +1,7 @@
 import express from 'express'
 import Hero from '../model/superheoScema.js'
 import { generateAndSetCookies } from '../utils/generateAndSetCookie.js'
-import {verifyuser} from '../utils/verifyuser.js'
+import {verifyuser} from '../middleware/verifyuser.js'
 
 const router = express.Router()
 router.post('/hero-login',async(req,res)=> {
