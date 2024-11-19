@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import { connectToDb } from './db/connect.js';
 import userRoutes from './routes/userRoutes.js'
 import grievenceRoutes from './routes/grievenceRoute.js'
+import heroRoutes from './routes/heroroutes.js'
 dotenv.config()
 
 
@@ -27,6 +28,7 @@ app.use(cookieParser())
 
 app.use('/api',userRoutes)
 app.use('/api',grievenceRoutes)
+app.use('/api',heroRoutes)
 
 
 app.listen(PORT,()=> {
