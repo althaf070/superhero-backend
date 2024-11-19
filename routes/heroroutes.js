@@ -1,7 +1,7 @@
 import express from 'express'
 import Hero from '../model/superheoScema.js'
 import { generateAndSetCookies } from '../utils/generateAndSetCookie.js'
-import {verifyuser} from '../middleware/verifyuser.js'
+import {verifyUser} from '../middleware/verifyuser.js'
 
 const router = express.Router()
 router.post('/hero-login',async(req,res)=> {
@@ -28,7 +28,7 @@ try {
 }
 })
 
-router.get('/check-hero',verifyuser,async(req,res)=> {
+router.get('/check-hero',verifyUser,async(req,res)=> {
    
         try {
             const user = await Hero.findById(req.userId).select("-password")
