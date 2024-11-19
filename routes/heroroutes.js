@@ -1,7 +1,7 @@
 import express from 'express'
 import Hero from '../model/superheoScema.js'
-import { verifyhero } from '../middleware/verifyhero.js'
-import { generateAndSetHeroCookies } from '../utils/herocookies.js'
+import { generateAndSetCookies } from '../utils/generateAndSetCookie.js'
+import {verifyuser} from '../utils/verifyuser.js'
 
 const router = express.Router()
 router.post('/hero-login',async(req,res)=> {
@@ -15,7 +15,7 @@ try {
         return res.status(400).json({ success: false, message: "Invalid credentials" });
     }
    
-    generateAndSetHeroCookies(res,user._id)
+    generateAndSetCookies(res,user._id)
     await user.save()
     res.status(200).json({ success: true, message:"Login successful",user:{
         ...user._doc,
@@ -28,7 +28,7 @@ try {
 }
 })
 
-router.get('/check-hero',verifyhero,async(req,res)=> {
+router.get('/check-hero',verifyuser,async(req,res)=> {
    
         try {
             const user = await Hero.findById(req.userId).select("-password")
