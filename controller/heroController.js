@@ -2,6 +2,7 @@ import { generateAndSetHeroCookies } from "../utils/generateHeroccokie.js";
 import { verifyHero } from '../middleware/verifyhero.js'
 import Hero from "../model/superheoScema.js";
 
+// login
 export const heroLogin = async(req,res)=> {
     const {email,password} = req.body
 try {
@@ -26,6 +27,7 @@ try {
 }
 }
 
+// checking if logged in or not
 export const heroCheckAuth = async(req,res)=> {
    
     try {
@@ -40,6 +42,7 @@ export const heroCheckAuth = async(req,res)=> {
     }
 }
 
+// logout
 export const heroLogout = (req, res) => {
     try {
         res.clearCookie("herotoken", { httpOnly: true, secure: process.env.NODE_ENV==="production",sameSite:"None" });

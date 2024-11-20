@@ -1,6 +1,6 @@
 import Greivence from "../model/grievenceSchema.js";
 
-
+// creating new grievence
 export const logGrievence = async(req,res)=> {
     const {grievanceType,description,location} = req.body
     try {
@@ -19,6 +19,7 @@ export const logGrievence = async(req,res)=> {
     }
 }
 
+// updating status of grievences
 export const updateGrievanceStatus = async (req, res) => {
     const { status } = req.body;
     const { id } = req.params;
@@ -44,6 +45,7 @@ export const updateGrievanceStatus = async (req, res) => {
     }
 };
 
+// fethcing grievences based opn the logged user
 export const userGrievece = async (req, res) => {
     const userId = req.userId;
 
@@ -59,9 +61,10 @@ export const userGrievece = async (req, res) => {
     }
 }
 
-
+// getting all grievences with filter and sorting
 export const getGrievances = async (req, res) => {
   try {
+    // getting queries
     const { grievanceType, status, location, sortBy, sortOrder, query } = req.query;
 
     // Build the filter object
@@ -70,7 +73,7 @@ export const getGrievances = async (req, res) => {
     if (status) filter.status = status;
     if (location) filter.location = { $regex: location, $options: 'i' }; // using regex for case-insensitive match
 
-    // searching based query 
+    // searching based query return based any of this condition
     if (query) {
       filter.$or = [
         { grievanceType: { $regex: query, $options: 'i' } },
@@ -79,7 +82,7 @@ export const getGrievances = async (req, res) => {
       ];
     }
 
-    // Build the sort object
+    // sorting 
     const sort = {};
     if (sortBy) sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
@@ -90,7 +93,7 @@ export const getGrievances = async (req, res) => {
         path: 'userId',
         select: 'username email',
       });
-
+// fetched with user details
     res.status(200).json({
       success: true,
       count: grievances.length,
@@ -128,8 +131,7 @@ export const getGrievances = async (req, res) => {
     }
   };
 
-
-  
+  //getting dashboard data 
   export const grivenceDashboard = async (req, res) => {
     try {
       const [resolvedCount, pendingCount, ongoingCount, typeCounts] = await Promise.all([
@@ -161,7 +163,7 @@ export const getGrievances = async (req, res) => {
     }
   };
   
-
+// getting recent resolved cases
 export const getRecentResolvedCases = async (req,res)=> {
   try {
     const grievences = await Greivence.find({status:'Resolved'}).populate({

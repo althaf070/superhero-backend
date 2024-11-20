@@ -9,7 +9,7 @@ export const signup =async (req, res) =>{
 const {username,email,password} = req.body
 try {
     if (!username || !email || !password ) {
-        throw new Error("All feilds are required");
+        return res.status(400).json({ success: false, message: 'Please enter all form fields' });
       }
     const existingUser = await User.findOne({email})
     if(existingUser){
@@ -41,12 +41,15 @@ try {
 }
 }
 
+// user logn
 export const login = async(req, res) => {
 const {email,password} = req.body;
 try {
-    if(!email || !password) {
-        return new Error('Please enter all form fields')
-    }
+         // Check if email and password are provided
+         if (!email || !password) {
+            return res.status(400).json({ success: false, message: 'Please enter all form fields' });
+        }
+
     const user = await User.findOne({email})
     if (!user) {
         return res.status(400).json({ success: false, message: "Invalid credentials" });
@@ -56,7 +59,6 @@ try {
         return res.status(400).json({ success: false, message: "Invalid credentials" });
     }
     generateAndSetCookies(res,user._id)
-    await user.save()
     res.status(200).json({ success: true, message:"Login successful",user:{
         ...user._doc,
         password:undefined
@@ -68,6 +70,7 @@ try {
 }
 }
 
+// logout
 export const logout = async (req, res) => {
     try {
       res.clearCookie("token", { httpOnly: true, secure: process.env.NODE_ENV==="production",sameSite:"None" });
