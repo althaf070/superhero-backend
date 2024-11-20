@@ -4,7 +4,7 @@ export const generateAndSetHeroCookies = (res, heroId) => {
     try {
       const herotoken = jwt.sign({ heroId },process.env.JWT_SECRET,{ expiresIn: '7d' });
   
-      res.cookie('herotoken', token, {
+      res.cookie('herotoken', herotoken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite:"None",
