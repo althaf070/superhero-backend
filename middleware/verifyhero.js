@@ -1,17 +1,17 @@
 import jwt from 'jsonwebtoken';
 
-export const verifyUser = async (req, res, next) => {
-  const token = req.cookies.token;
+export const verifyHero = async (req, res, next) => {
+  const herotoken = req.cookies.herotoken;
 
-  if (!token) {
+  if (!herotoken) {
     return res.status(401).json({ success: false, message: "Unauthorized - No token provided" });
   }
 
   try {
     // Decoding and verifying token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(herotoken, process.env.JWT_SECRET);
   
-    req.userId = decoded.userId;  
+    req.heroId = decoded.heroId;  
     
     next();  
 
